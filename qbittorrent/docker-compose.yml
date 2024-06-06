@@ -1,0 +1,14 @@
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - WEBUI_PORT=9091
+    volumes:
+      - ./config:/config
+      - /data/torrents:/data/torrents
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: "service:gluetun"
+    restart: unless-stopped

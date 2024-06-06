@@ -1,0 +1,15 @@
+services:
+  process-exporter:
+    image: ncabatoff/process-exporter:latest
+    container_name: process-exporter
+    ports:
+      - 9257:9256
+    volumes:
+      - /proc:/host/proc
+      - /etc/localtime:/etc/localtime:ro
+      - ./process-exporter.yml:/config/process-exporter.yml:ro
+    command:
+      - '--config.path=/config/process-exporter.yml'
+      - '--procfs=/host/proc'
+    restart: unless-stopped
+    privileged: true

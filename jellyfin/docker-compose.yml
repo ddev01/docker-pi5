@@ -1,0 +1,15 @@
+services:
+  jellyfin:
+    image: linuxserver/jellyfin
+    container_name: jellyfin
+    ports:
+      - 8096:8096
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - /data/media:/media
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped

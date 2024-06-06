@@ -1,0 +1,32 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    ports:
+      - 8888:8888/tcp
+      - 8388:8388/tcp
+      - 8388:8388/udp
+      - 9091:9091
+    volumes:
+      - ~/docker/gluetun:/gluetun
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - VPN_SERVICE_PROVIDER=nordvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      - SERVER_COUNTRIES=${SERVER_COUNTRIES}
+      - SERVER_CITIES=${SERVER_CITIES}
+      - UPDATER_PERIOD=24h
+      - DOT=on
+      - DNS=1.1.1.1,1.0.0.1
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
+    networks:
+      - gluetun-network
+
+networks:
+  gluetun-network:
+    external: true

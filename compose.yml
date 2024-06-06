@@ -1,0 +1,102 @@
+services:
+  pihole:
+    extends:
+      file: ./pihole/docker-compose.yml
+      service: pihole
+    profiles:
+      - main
+
+  jellyfin:
+    extends:
+      file: ./jellyfin/docker-compose.yml
+      service: jellyfin
+    profiles:
+      - main
+
+  gluetun:
+    extends:
+      file: ./gluetun/docker-compose.yml
+      service: gluetun
+    profiles:
+      - arr
+
+  qbittorrent:
+    extends:
+      file: ./qbittorrent/docker-compose.yml
+      service: qbittorrent
+    profiles:
+      - arr
+
+  sonarr:
+    extends:
+      file: ./sonarr/docker-compose.yml
+      service: sonarr
+    profiles:
+      - arr
+
+  radarr:
+    extends:
+      file: ./radarr/docker-compose.yml
+      service: radarr
+    profiles:
+      - arr
+
+  prowlarr:
+    extends:
+      file: ./prowlarr/docker-compose.yml
+      service: prowlarr
+    profiles:
+      - arr
+
+  bazarr:
+    extends:
+      file: ./bazarr/docker-compose.yml
+      service: bazarr
+    profiles:
+      - arr
+
+  recyclarr:
+    extends:
+      file: ./recyclarr/docker-compose.yml
+      service: recyclarr
+
+  portainer:
+    extends:
+      file: ./portainer/docker-compose.yml
+      service: portainer
+    profiles:
+      - monitoring
+
+  grafana:
+    extends:
+      file: ./grafana/docker-compose.yml
+      service: grafana
+    profiles:
+      - monitoring
+
+  prometheus:
+    extends:
+      file: ./prometheus/docker-compose.yml
+      service: prometheus
+    profiles:
+      - monitoring
+
+  node-exporter:
+    extends:
+      file: ./node-exporter/docker-compose.yml
+      service: node-exporter
+    profiles:
+      - monitoring
+
+  process-exporter:
+    extends:
+      file: ./process-exporter/docker-compose.yml
+      service: process-exporter
+    profiles:
+      - monitoring
+
+networks:
+  default:
+    external: false
+  gluetun-network:
+    external: true

@@ -1,0 +1,14 @@
+services:
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    ports:
+      - 6767:6767
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config:/config
+      - /data/media:/data/media
+    restart: unless-stopped
